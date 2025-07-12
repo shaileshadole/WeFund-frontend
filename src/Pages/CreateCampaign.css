@@ -1,0 +1,117 @@
+.createCampaign-container {
+  max-width: 1200px;
+  background-color: #1d1c23;
+  margin: auto;
+
+  padding: 15px;
+}
+
+.createCampaign-topButton {
+  display: flex;
+  justify-content: center;
+}
+
+.createCampaign-topButton div {
+  background: #3a3a41;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  margin: 20px auto;
+  display: inline-block;
+  text-align: center;
+}
+
+.createCampaign-container label {
+  display: block;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.createCampaign-container .input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.createCampaign-container input {
+  height: 40px;
+  width: 100%;
+  padding: 0 35px 0 10px;
+  line-height: 40px;
+
+  background: transparent;
+
+  border-radius: 5px;
+  border-color: rgba(147, 147, 147, 0.2);
+  /* outline-color: rgba(147, 147, 147, 0.807); */
+
+  margin-bottom: 30px;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.814);
+}
+
+.createCampaign-container input::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.createCampaign-container input:focus {
+  border-color: rgba(255, 255, 255, 0.554);
+  outline: none;
+}
+
+.createCampaign-container textarea {
+  height: 40px;
+  width: 100%;
+  padding: 10px 35px 10px 10px;
+
+  color: rgba(255, 255, 255, 0.814);
+  height: 150px;
+  resize: none;
+
+  background: transparent;
+
+  border-radius: 5px;
+  border-color: rgba(147, 147, 147, 0.2);
+
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.createCampaign-container textarea::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.createCampaign-container textarea:focus {
+  border-color: rgba(255, 255, 255, 0.554);
+  outline: none;
+}
+
+.createCampaign-container button {
+  color: #ffffff;
+  background-color: #8164e8;
+
+  height: 60px;
+  width: 100%;
+
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+
+  font-weight: 600;
+  font-size: 1.13rem;
+
+  border: none;
+  outline: none;
+  transition: background-color 0.2s ease;
+}
+
+.createCampaign-container button:hover {
+  background-color: #6741f0;
+  cursor: pointer;
+}
+
+
+
+
+

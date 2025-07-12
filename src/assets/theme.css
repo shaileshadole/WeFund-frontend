@@ -1,0 +1,58 @@
+:root {
+  /* Primary Theme Color */
+  --color-primary: #8164e8;
+  --color-primary-hover: #6e4fdc;
+
+  /* Backgrounds */
+  --color-bg: #121212;
+  --color-surface: #1e1e2f;
+
+  /* Text */
+  --color-text: #ffffff;
+  --color-text-p: #5f5f5f;
+  --color-text-muted: #a1a1aa;
+
+  /* Accent Colors */
+  --color-accent-green: #2dd4bf;
+  --color-accent-gold: #facc15;
+  --color-accent-indigo: #6366f1;
+  --color-error: #ef4444;
+
+  /* Optional */
+  --color-accent-pink: #f472b6;
+  --color-accent-muted-green: #4ade80;
+  --color-border-gray: #3f3f46;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+button.primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.4rem;
+  transition: background-color 0.3s ease;
+}
+
+button.primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.card {
+  background-color: var(--color-surface);
+  padding: 1rem;
+  border-radius: 0.6rem;
+  color: var(--color-text);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.border-divider {
+  border-color: var(--color-border-gray);
+}
