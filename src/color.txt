@@ -1,5 +1,7 @@
 #8164e8 : purple;
 #6e4fdc : 15% Darker that Purple;
+#23bc74 : Green;
+#1ca463 : Darker green;
 #131219 : Background (Dark Black);
 #1d1c23 : Container (Light Black);
 #3a3a41 : Gray;

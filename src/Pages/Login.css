@@ -88,7 +88,7 @@
   transition: background-color 0.2s ease;
 }
 .login-container button:hover {
-  background-color: #1649c4;
+  background-color: var(--color-primary-hover);
   cursor: pointer;
 }
 

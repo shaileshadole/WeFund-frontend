@@ -1,0 +1,43 @@
+.donationCardContainer {
+  background-color: var(--color-container2);
+
+  width: 100%;
+  padding: 1.3rem;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+
+  transition: all 0.3s ease;
+}
+
+.donationCardContainer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.donationCardContainer:hover {
+  background-color: var(--color-container2-hover);
+}
+
+.donationCardContainer div h4{
+    color: var(--color-accent-green);
+}
+
+.donationCardContainer div p{
+    font-weight: 600;
+}
+
+@media screen and (max-width: 700px) {
+  .donationCardContainer {
+    padding: 1rem;
+
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+  }
+}

@@ -3,14 +3,20 @@
   --color-primary: #8164e8;
   --color-primary-hover: #6e4fdc;
 
+  --color-green: #23bc74;
+  --color-green-hover: #1ca463;
+
   /* Backgrounds */
-  --color-bg: #121212;
-  --color-surface: #1e1e2f;
+  --color-bg: #131219;
+  --color-container: #1d1c23;
+  --color-container2: #2a292f;
+  --color-container2-hover: #34333a;
 
   /* Text */
   --color-text: #ffffff;
-  --color-text-p: #5f5f5f;
-  --color-text-muted: #a1a1aa;
+  --color-text-p: #606067;
+  --color-text-aaa : #aaa;
+  --color-text-muted: #d9d9d9;
 
   /* Accent Colors */
   --color-accent-green: #2dd4bf;

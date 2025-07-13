@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Login.css";
 import axios from "axios";
-import { server } from "../main.jsx";
+import { Context } from "../context";
+import { server } from "../config";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
@@ -17,7 +18,7 @@ const Login = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const navigate = useNavigate();
 
-  const { setIsAuthenticated, loading, setLoading } = useContext(Context);
+  const { setIsAuthenticated, loading, setLoading, setCUser, cuser } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,10 +47,25 @@ const Login = () => {
       console.log(res.data);
 
       setIsAuthenticated(true);
+
+      // 👇 Immediately fetch user data
+      try{
+
+        const userRes = await axios.get(`${server}/user/meprofile`, {
+          withCredentials: true,
+        });
+        setCUser(userRes.data.user);
+        console.log(cuser);
+        
+      }catch(error){
+        toast.error(error.response.data.message);
+        console.log(error);
+      }
+
+      // Reset Form
       setEmail("");
       setPassword("");
       navigate("/");
-	  
     } catch (error) {
       if (
         error.response &&
@@ -68,7 +84,7 @@ const Login = () => {
   return (
     <>
       <div className="l-container">
-         {loading ? <Loader /> : null}
+        {loading ? <Loader /> : null}
         <form className="login-container" onSubmit={handleSubmit}>
           <h3>Login</h3>
           <label htmlFor="email">Email</label>
@@ -107,7 +123,7 @@ const Login = () => {
           </button>
           <p>
             Don't have an account?{" "}
-            <span onClick={() => navigate("/login")}> Register</span>
+            <span onClick={() => navigate("/register")}> Register</span>
           </p>
         </form>
       </div>

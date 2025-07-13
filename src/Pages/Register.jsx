@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./Login.css";
 import axios from "axios";
-import { Context, server } from "../main.jsx";
+import { Context } from "../context";
+import { server } from "../config";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
@@ -18,9 +19,7 @@ const Register = () => {
   const [showPassword2, setShowPassword2] = useState(false);
   const navigate = useNavigate();
 
-  const { setIsAuthenticated, loading, setLoading } = useContext(Context);
-
-
+  const { setIsAuthenticated, loading, setLoading, setCUser } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +30,6 @@ const Register = () => {
       return toast.error("Password Doesn't match");
     }
 
-	
     setLoading(true);
     try {
       const res = await axios.post(
@@ -52,13 +50,28 @@ const Register = () => {
       toast.success(res.data.message);
       console.log(res.data);
 
-	  setIsAuthenticated(true);
+      setIsAuthenticated(true);
+
+      // 👇 Immediately fetch user data
+      try{
+
+        const userRes = await axios.get(`${server}/user/meprofile`, {
+          withCredentials: true,
+        });
+        setCUser(userRes.data.user);
+        console.log(cuser);
+        
+      }catch(error){
+        toast.error(error.response.data.message);
+        console.log(error);
+      }
+
+      // Reset Form
       setEmail("");
       setPassword("");
       setName("");
       setConfirmPassword("");
       navigate("/");
-
     } catch (error) {
       if (
         error.response &&
@@ -77,7 +90,7 @@ const Register = () => {
   return (
     <>
       <div className="l-container">
-	           {loading ? <Loader /> : null}
+        {loading ? <Loader /> : null}
         <form className="login-container" onSubmit={handleSubmit}>
           <h3>Create Account</h3>
           <label htmlFor="name">Name</label>
