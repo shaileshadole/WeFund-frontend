@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Header.css";
 import { Context } from "../context";
 import { FiSearch } from "react-icons/fi";
@@ -7,12 +7,20 @@ import { useNavigate } from "react-router-dom";
 
 const Header = ({ setlhsearch }) => {
   const [hsearch, setHSearch] = useState("");
+  const [ cuserName, setcuserName ] = useState("User");
   const navigate = useNavigate();
   const { isAuthenticated, cuser } = useContext(Context);
 
   const handleSubmit = () => {
     setlhsearch(hsearch);
   }
+
+  //For .split error
+  useEffect(() => {
+  if (cuser?.name) {
+    setcuserName(cuser.name.split(" ")[0]);
+  }
+}, [cuser]);
 
   return (
     <div className="header-container">
@@ -32,7 +40,7 @@ const Header = ({ setlhsearch }) => {
           <>
             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
               <ImUser onClick={() => navigate("/myprofile")} className="user-icon" />
-              <span onClick={() => navigate("/myprofile")}>{cuser.name.split(" ")[0]}</span>
+              <span onClick={() => navigate("/myprofile")}>{cuserName}</span>
               <button onClick={() => navigate("/create-campaign")} >CreateCampaign</button>
             </div>
           </>
