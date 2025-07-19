@@ -18,6 +18,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    min-width: 33%;
 }
 
 .donationCardContainer:hover {

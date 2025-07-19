@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Donation.module.css";
+import { format } from "date-fns";
 
 const DonationCard = ({ title1, title, date, amount }) => {
   return (
@@ -10,7 +11,7 @@ const DonationCard = ({ title1, title, date, amount }) => {
       </div>
       <div>
         <h4>Transaction Date</h4>
-        <p>{new Date(date).toLocaleDateString()}</p>
+        <p>{format(new Date(date), "dd MMM yyyy")}</p>
       </div>
       <div>
         <h4>Amount</h4>

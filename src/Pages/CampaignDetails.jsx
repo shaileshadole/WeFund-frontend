@@ -9,12 +9,17 @@ import { ImUser } from "react-icons/im";
 import DonationCard from "../Components/DonationCard";
 import { LuArrowBigDown } from "react-icons/lu";
 import DonationBox from "../Components/DonationBox";
+import DonationBox2 from "../Components/DonationBox2";
+import { format } from "date-fns";
+
+
 
 const CampaignDetails = () => {
   const { campaignId } = useParams();
   const [campaign, setCampaign] = useState(null);
   const [donors, setDonors] = useState([]);
   const { loading, setLoading } = useContext(Context);
+  const [creator, setCreator] = useState({});
 
   const fetchData = async () => {
     setLoading(true);
@@ -25,6 +30,7 @@ const CampaignDetails = () => {
         withCredentials: true,
       });
       setCampaign(res.data.campaign);
+      setCreator(res.data.campaign.user);
     } catch (error) {
       console.log(error);
     }
@@ -111,7 +117,7 @@ const CampaignDetails = () => {
             key={data._id}
             title1={"Name"}
             title={data.donorName}
-            date={data.endDate}
+            date={data.createdAt}
             amount={data.amount}
           />
         ))}
@@ -123,7 +129,7 @@ const CampaignDetails = () => {
         Donate Here <LuArrowBigDown />
       </h3>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <DonationBox campaign={campaign}/>
+      <DonationBox2 campaign={campaign} creator={creator}/>
       </div>
 
     </div>
