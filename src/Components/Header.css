@@ -90,6 +90,12 @@
     display: none;
   }
 
+  .header-container .cclick:hover {
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: rgb(218, 247, 174);
+  }
+
   .header-container button {
     font-size: 0.9rem;
   }

@@ -39,8 +39,8 @@ const Header = ({ setlhsearch }) => {
         {isAuthenticated ? (
           <>
             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <ImUser onClick={() => navigate("/myprofile")} className="user-icon" />
-              <span onClick={() => navigate("/myprofile")}>{cuserName}</span>
+              <ImUser onClick={() => navigate("/myprofile")} className="user-icon cclick" />
+              <span onClick={() => navigate("/myprofile")} className="cclick">{cuserName}</span>
               <button onClick={() => navigate("/create-campaign")} >CreateCampaign</button>
             </div>
           </>
