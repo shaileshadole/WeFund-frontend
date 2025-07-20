@@ -11,7 +11,7 @@ const DonationCard = ({ title1, title, date, amount }) => {
       </div>
       <div>
         <h4>Transaction Date</h4>
-        <p>{format(new Date(date), "dd MMM yyyy")}</p>
+        <p>{format(new Date(date), " hh:mm a, dd MMM yyyy")}</p>
       </div>
       <div>
         <h4>Amount</h4>

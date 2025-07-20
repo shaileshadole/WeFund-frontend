@@ -70,13 +70,13 @@
   right: 10px;
   top: 50%;
   transform: translateY(-90%);
-  color: var(--color-primary);
+  color: var(--color-green);
   cursor: pointer;
 }
 
 .login-container button {
   color: #ffffff;
-  background-color: #8164e8;
+  background-color: var(--color-green);
   height: 40px;
   width: 100%;
   border-radius: 10px;
@@ -85,14 +85,14 @@
   font-weight: 600;
   border: none;
   outline: none;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 .login-container button:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-green-hover);
   cursor: pointer;
 }
 
 .login-container p span {
-  color: var(--color-primary);
+  color: var(--color-green);
   cursor: pointer;
 }

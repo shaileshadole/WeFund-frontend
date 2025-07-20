@@ -9,11 +9,40 @@ import { server } from "../config";
 import CampaignCard from "../Components/CampaignCard";
 import CreateCampaign from "./CreateCampaign";
 import DonationCard from "../Components/DonationCard";
+import Footer from "../Components/Footer";
+import Loader from "../Components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
-  const { cuser } = useContext(Context);
+  const { cuser, setCUser } = useContext(Context);
   const [myCampaigns, setMyCampaigns] = useState([]);
   const [myDonations, setMyDonations] = useState([]);
+  const { loading, setLoading, setIsAuthenticated } = useContext(Context);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    
+    
+    const confirmed = window.confirm(
+      "Are you sure, you want to logout?"
+    );
+    if(!confirmed) return;
+    setLoading(true);
+
+    try {
+      const res = await axios.get(`${server}/user/logout`, {
+        withCredentials: true
+      });
+      toast.success(res.data.message);
+      setCUser({});
+      setIsAuthenticated(false);
+      navigate("/");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to Logout");
+    }finally{
+      setLoading(false);
+    }
+  };
 
   const fetchData = async () => {
     //Getting my Campaigns
@@ -39,6 +68,18 @@ const MyProfile = () => {
       console.log(error);
       toast.error(error.response?.data?.message || "Failed to fetch donations");
     }
+
+    // 👇 Immediately fetch user data
+    try {
+      const userRes = await axios.get(`${server}/user/meprofile`, {
+        withCredentials: true,
+      });
+      setCUser(userRes.data.user);
+      console.log("User Bhetla re ba, C user madhe takla : " + cuser);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch User.");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -47,6 +88,8 @@ const MyProfile = () => {
 
   return (
     <div className={styles.profileContainer}>
+      {loading && <Loader />}
+      <h1>Your Profile</h1>
       <div className={styles.header}>
         <div className={styles.userInfo}>
           <ImUser className={styles.userIcon} />
@@ -55,15 +98,32 @@ const MyProfile = () => {
             <p>{cuser.email}</p>
           </div>
         </div>
+        <button className={styles.rupeeIcon} onClick={handleLogout}>
+          Logout
+        </button>
 
-        <RiMoneyRupeeCircleFill className={styles.rupeeIcon} />
+        {/* <RiMoneyRupeeCircleFill className={styles.rupeeIcon} /> */}
       </div>
+
+      <div className={styles.balance}>
+        <div>
+          <p>Your Balance</p>
+        </div>
+        <div>
+          <h3>₹{cuser.balance}</h3>
+        </div>
+      </div>
+      <p style={{ color: "var(--color-text-p)", textAlign: "center" }}>
+        You will get ₹100 per day to Spent
+      </p>
+
+      <hr />
 
       <h3>Your Campaigns({myCampaigns.length})</h3>
       <div className={styles.allCampaign}>
         {(myCampaigns || []).map((data) => (
           <CampaignCard
-            key={data._id}
+            campaignId={data._id}
             title={data.title}
             story={data.story}
             target={data.target}
@@ -83,12 +143,13 @@ const MyProfile = () => {
             key={data._id}
             title1={"title"}
             title={data.title}
-            date={data.endDate}
+            date={data.createdAt}
             amount={data.amount}
           />
         ))}
       </div>
 
+      <Footer />
     </div>
   );
 };

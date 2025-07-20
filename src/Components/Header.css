@@ -13,7 +13,7 @@
 }
 
 .header-container input {
-  height: 40px;
+  height: 50px;
   width: 100%;
   padding: 0 35px 0 10px; /* Top/Bottom 0, Right 35px for icon, Left
 10px for text */
@@ -30,13 +30,13 @@
   position: absolute;
   right: 5px;
   top: 50%;
-  transform: translateY(-74%);
+  transform: translateY(-70%);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  height: 30px;
+  height: 40px;
   width: 40px;
   background-color: var(--color-green);
   border-radius: 5px;

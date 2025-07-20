@@ -1,22 +1,36 @@
 .profileContainer {
   max-width: 1200px;
   padding: 1.5rem;
-  background-color: var(--color-bg);
+  background-color: var(--color-container);
   margin: auto;
 }
+
+.profileContainer h1 {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+
+
+.profileContainer button:hover {
+  background-color: red;
+}
+
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   margin-bottom: 2rem;
+  padding: 0 3rem;
 }
 
 .rupeeIcon {
-  font-size: 9rem;
+  /* font-size: 9rem; */
+  /* font-size: 3rem; */
   margin-right: 20px;
-  color: var(--color-green);
+  background-color: var(--color-error);
 }
 
 .userInfo {
@@ -43,10 +57,21 @@
   margin-top: 5px;
 }
 
+.balance{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.balance h3{
+  margin: 0px 0px;
+}
+
 h3 {
   font-size: 1.2rem;
   font-weight: 600;
-  margin: 10px 0px;
+  margin: 15px 0px;
 }
 
 hr {
@@ -93,11 +118,8 @@ hr {
 }
 
 @media screen and (max-width: 700px) {
-  .rupeeIcon {
-    display: none;
-  }
-
-  .header{
-    margin: 20px auto 40px auto;
+  .header {
+    /* margin: 20px auto 40px auto; */
+    padding: 0;
   }
 }

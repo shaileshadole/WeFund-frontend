@@ -99,7 +99,7 @@
 
 .createCampaign-container button {
   color: #ffffff;
-  background-color: #8164e8;
+  background-color: var(--color-green);
 
   height: 60px;
   width: 100%;
@@ -118,6 +118,6 @@
 }
 
 .createCampaign-container button:hover {
-  background-color: #6741f0;
+  background-color: var(--color-green-hover);
   cursor: pointer;
 }

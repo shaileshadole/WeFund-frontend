@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./CampaignDetails.module.css";
 import axios from "axios";
 import { server } from "../config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../context";
 import Loader from "../Components/Loader";
 import { ImUser } from "react-icons/im";
@@ -10,16 +10,18 @@ import DonationCard from "../Components/DonationCard";
 import { LuArrowBigDown } from "react-icons/lu";
 import DonationBox from "../Components/DonationBox";
 import DonationBox2 from "../Components/DonationBox2";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { format } from "date-fns";
-
-
+import toast from "react-hot-toast";
 
 const CampaignDetails = () => {
   const { campaignId } = useParams();
   const [campaign, setCampaign] = useState(null);
   const [donors, setDonors] = useState([]);
-  const { loading, setLoading } = useContext(Context);
+  const { loading, setLoading, cuser, setCUser } = useContext(Context);
   const [creator, setCreator] = useState({});
+  const [showHamburger, setShowHamburger] = useState(false);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
@@ -46,6 +48,18 @@ const CampaignDetails = () => {
     } finally {
       setLoading(false);
     }
+
+    // 👇 Immediately fetch user data
+    try {
+      const userRes = await axios.get(`${server}/user/meprofile`, {
+        withCredentials: true,
+      });
+      setCUser(userRes.data.user);
+      console.log(cuser);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to load profile.");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -66,6 +80,60 @@ const CampaignDetails = () => {
 
   return (
     <div className={styles.campaignDetailsContainer}>
+      <h2 className={styles.title}>{campaign.title}</h2>
+
+      {/* hamburger */}
+
+      {cuser._id === campaign.user ? (
+        <div className={styles.menuWrapper}>
+          <GiHamburgerMenu
+            className={styles.hamburger}
+            onClick={() => setShowHamburger((prev) => !prev)}
+          />
+          <div
+            className={`${styles.hamburgerMenu} ${
+              showHamburger ? styles.showMenu : ""
+            }`}
+          >
+            <h4
+              className={styles.edit}
+              onClick={() => navigate(`/edit-campaign/${campaignId}`)}
+            >
+              Edit
+            </h4>
+            <h4
+              className={styles.delete}
+              onClick={async () => {
+                const confirmed = window.confirm(
+                  "Are you sure you want to delete this?"
+                );
+                if (confirmed) {
+                  try {
+                    const res = await axios.delete(
+                      `${server}/campaign/${campaignId}`,
+                      {
+                        withCredentials: true,
+                      }
+                    );
+
+                    toast.success(res.data.message);
+                    console.log(res.data.message);
+                    navigate("/");
+                  } catch (error) {
+                    toast.error(
+                      error?.response?.data?.message ||
+                        "Failed to delete campaign."
+                    );
+                  }
+                }
+              }}
+            >
+              Delete
+            </h4>
+          </div>
+        </div>
+      ) : null}
+
       {/* Section 1: Image and Stats */}
       <div className={styles.section1}>
         <img
@@ -103,7 +171,6 @@ const CampaignDetails = () => {
           </strong>{" "}
           {campaign.userName}
         </div>
-        <h2 className={styles.title}>{campaign.title}</h2>
         <p className={styles.story}>{campaign.story}</p>
         {/* You can add a donate button here */}
       </div>
@@ -128,10 +195,15 @@ const CampaignDetails = () => {
       <h3>
         Donate Here <LuArrowBigDown />
       </h3>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <DonationBox2 campaign={campaign} creator={creator}/>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <DonationBox2 campaign={campaign} creator={creator} fetchData={fetchData} />
       </div>
-
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { FaEnvelope } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import Loader from "../Components/Loader";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -19,7 +20,8 @@ const Register = () => {
   const [showPassword2, setShowPassword2] = useState(false);
   const navigate = useNavigate();
 
-  const { setIsAuthenticated, loading, setLoading, setCUser } = useContext(Context);
+  const { setIsAuthenticated, loading, setLoading, setCUser } =
+    useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,15 +55,13 @@ const Register = () => {
       setIsAuthenticated(true);
 
       // 👇 Immediately fetch user data
-      try{
-
+      try {
         const userRes = await axios.get(`${server}/user/meprofile`, {
           withCredentials: true,
         });
         setCUser(userRes.data.user);
         console.log(cuser);
-        
-      }catch(error){
+      } catch (error) {
         toast.error(error.response.data.message);
         console.log(error);
       }

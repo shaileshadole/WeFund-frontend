@@ -6,10 +6,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import SLogin from "../SubComponents/SLogin";
 import SCant from "../SubComponents/SCant";
+import { useNavigate } from "react-router-dom";
 
-const DonationBox2 = ({ campaign, creator }) => {
+const DonationBox2 = ({ campaign, creator, fetchData }) => {
   const [iamount, setiamount] = useState();
   const { isAuthenticated, cuser, loading, setLoading } = useContext(Context);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -32,12 +34,13 @@ const DonationBox2 = ({ campaign, creator }) => {
         }
       );
 
-      toast.success("Success");
+      toast.success(res.data.message);
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
+      fetchData();
     }
     setiamount("");
   };
@@ -45,9 +48,12 @@ const DonationBox2 = ({ campaign, creator }) => {
   // Early returns for auth or self-donation checks
   if (!isAuthenticated)
     return (
-      <h3>
-        Please <strong>log in</strong> to donate.
-      </h3>
+      <div className={styles.donationBoxContainer}>
+        <h3>
+          Please <button onClick={() => navigate("/login")}>Login</button> to
+          donate.
+        </h3>
+      </div>
     );
 
   //Console Logging
@@ -55,7 +61,11 @@ const DonationBox2 = ({ campaign, creator }) => {
   console.log("creator:", creator);
 
   if (cuser && cuser._id === creator)
-    return <h3>You cannot donate to your own campaign.</h3>;
+    return (
+      <div className={styles.donationBoxContainer}>
+        <h3>You cannot donate to your own campaign.</h3>
+      </div>
+    );
 
   return (
     <div className={styles.donationBoxContainer}>

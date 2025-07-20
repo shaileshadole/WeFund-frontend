@@ -15,9 +15,9 @@ import Footer from "../Components/Footer";
 const Home = () => {
   const [array, setArray] = useState([]);
   const [filteredCampaign, setFilteredCampaign] = useState([]);
-  const navigate = useNavigate();
   const [lhsearch, setlhsearch] = useState("");
-  const { loading, setLoading } = useContext(Context);
+  const { loading, setLoading, cuser } = useContext(Context);
+  const navigate = useNavigate();
 
   const fetchCampaign = async () => {
     setLoading(true);
@@ -37,7 +37,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchCampaign();
-  }, []);
+  }, [cuser]);
 
   //Search Logic
   useEffect(() => {

@@ -18,6 +18,8 @@ const CampaignCard = ({
 
   const navigate = useNavigate();
 
+  if(daysLeft < 0) return;
+
   return (
     <div className="campaignCard-Container" onClick={() => navigate(`/campaign/${campaignId}`)}>
       <img src={imageLink} />

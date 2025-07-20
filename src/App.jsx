@@ -9,6 +9,7 @@ import Home from "./Pages/Home";
 import CreateCampaign from "./Pages/CreateCampaign";
 import MyProfile from "./Pages/MyProfile";
 import CampaignDetails from "./Pages/CampaignDetails";
+import EditCampaign from "./Pages/EditCampaign";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />
           <Route path="/myprofile" element={<MyProfile />} />
+          <Route path="/edit-campaign/:campaignId" element={<EditCampaign />} />
           <Route path="/campaign/:campaignId" element={<CampaignDetails />} />
         </Routes>
         <Toaster />

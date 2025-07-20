@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CreateCampaign.css";
 import axios from "axios";
 import { Context } from "../context";
@@ -7,22 +7,54 @@ import toast from "react-hot-toast";
 import Header from "../Components/Header";
 import Loader from "../Components/Loader";
 import Navbar2 from "../Components/Navbar2";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateCampaign = () => {
-  const [title, setTitle] = useState();
-  const [story, setStory] = useState();
-  const [target, setTarget] = useState();
-  const [endDate, setEndDate] = useState();
-  const [imageLink, setImageLink] = useState();
+const EditCampaign = () => {
+  const { campaignId } = useParams();
+  const [campaign, setCampaign] = useState({});
+
+  const [title, setTitle] = useState(campaign.title);
+  const [story, setStory] = useState(campaign.story);
+  const [target, setTarget] = useState(campaign.target);
+  const [endDate, setEndDate] = useState(campaign.endDate);
+  const [imageLink, setImageLink] = useState(campaign.imageLink);
   const { loading, setLoading } = useContext(Context);
+
+  const navigate = useNavigate();
+
+  const fetchCampaign = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${server}/campaign/${campaignId}`);
+      setCampaign(res.data.campaign);
+
+      //Setting the states
+      setTitle(res.data.campaign.title);
+      setStory(res.data.campaign.story);
+      setTarget(res.data.campaign.target);
+      setEndDate(res.data.campaign.endDate?.substring(0, 10)); // Format date to YYYY-MM-DD
+      setImageLink(res.data.campaign.imageLink);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        error?.response?.data?.message || "Failed to delete campaign."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCampaign();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        `${server}/campaign/new`,
+      const res = await axios.put(
+        `${server}/campaign/${campaignId}`,
         {
           title,
           story,
@@ -40,17 +72,10 @@ const CreateCampaign = () => {
 
       toast.success(res.data.message);
       console.log(res.data);
-
-      setTitle("");
-      setStory("");
-      setTarget("");
-      setEndDate("");
-      setImageLink("");
+      navigate(`/campaign/${campaignId}`);
     } catch (error) {
       console.log(error);
-      toast.error(
-        error?.response?.data?.message || "Failed to create Campaign"
-      );
+      toast.error(error?.response?.data?.message || "Failed to delete campaign.");
     } finally {
       setLoading(false);
     }
@@ -63,7 +88,7 @@ const CreateCampaign = () => {
         {loading ? <Loader /> : null}
         {/* <Header /> */}
         <div className="createCampaign-topButton">
-          <div>Start a Campaign 🚀</div>
+          <div>Edit The Campaign 🚀</div>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -116,7 +141,7 @@ const CreateCampaign = () => {
             />
           </div>
           <button type="submit" className="submit-btn">
-            Create Campaign
+            Update Campaign
           </button>
         </form>
       </div>
@@ -124,4 +149,4 @@ const CreateCampaign = () => {
   );
 };
 
-export default CreateCampaign;
+export default EditCampaign;
