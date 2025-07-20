@@ -7,20 +7,20 @@ import { useNavigate } from "react-router-dom";
 
 const Header = ({ setlhsearch }) => {
   const [hsearch, setHSearch] = useState("");
-  const [ cuserName, setcuserName ] = useState("User");
+  const [cuserName, setcuserName] = useState("User");
   const navigate = useNavigate();
   const { isAuthenticated, cuser } = useContext(Context);
 
   const handleSubmit = () => {
     setlhsearch(hsearch);
-  }
+  };
 
   //For .split error
   useEffect(() => {
-  if (cuser?.name) {
-    setcuserName(cuser.name.split(" ")[0]);
-  }
-}, [cuser]);
+    if (cuser?.name) {
+      setcuserName(cuser.name.split(" ")[0]);
+    }
+  }, [cuser]);
 
   return (
     <div className="header-container">
@@ -28,6 +28,9 @@ const Header = ({ setlhsearch }) => {
         <input
           value={hsearch}
           onChange={(e) => setHSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSubmit();
+          }}
           placeholder="Search for campaigns"
         />
         <div onClick={handleSubmit} className="search-button">
@@ -39,9 +42,16 @@ const Header = ({ setlhsearch }) => {
         {isAuthenticated ? (
           <>
             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <ImUser onClick={() => navigate("/myprofile")} className="user-icon cclick" />
-              <span onClick={() => navigate("/myprofile")} className="cclick">{cuserName}</span>
-              <button onClick={() => navigate("/create-campaign")} >CreateCampaign</button>
+              <ImUser
+                onClick={() => navigate("/myprofile")}
+                className="user-icon cclick"
+              />
+              <span onClick={() => navigate("/myprofile")} className="cclick">
+                {cuserName}
+              </span>
+              <button onClick={() => navigate("/create-campaign")}>
+                CreateCampaign
+              </button>
             </div>
           </>
         ) : (

@@ -40,7 +40,7 @@
   width: 40px;
   background-color: var(--color-green);
   border-radius: 5px;
-  
+
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -55,6 +55,20 @@
 
 .header-container .user-icon {
   font-size: 2rem;
+}
+
+.header-container .cclick {
+  transition: font-size 0.2s ease, color 0.2s ease;
+}
+
+.header-container .cclick:hover {
+  cursor: pointer;
+  font-size: 1.05rem;
+  color: rgb(212, 252, 151);
+}
+
+.header-container .user-icon:hover {
+  font-size: 2.05rem;
 }
 
 .header-container button {
@@ -88,12 +102,6 @@
 
   .header-container .user-icon {
     display: none;
-  }
-
-  .header-container .cclick:hover {
-    cursor: pointer;
-    font-size: 1.1rem;
-    color: rgb(218, 247, 174);
   }
 
   .header-container button {
