@@ -13,6 +13,7 @@ import DonationBox2 from "../Components/DonationBox2";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import PaginationWrapper from "../Components/PaginationWrapper";
 
 const CampaignDetails = () => {
   const { campaignId } = useParams();
@@ -178,7 +179,7 @@ const CampaignDetails = () => {
       {/* Section 3: Donors */}
       <hr />
       <h3>Donations({donors.length})</h3>
-      <div className={styles.myDonations}>
+      {/* <div className={styles.myDonations}>
         {(donors || []).map((data) => (
           <DonationCard
             key={data._id}
@@ -188,7 +189,21 @@ const CampaignDetails = () => {
             amount={data.amount}
           />
         ))}
-      </div>
+      </div> */}
+
+      <PaginationWrapper
+        data={donors}
+        itemsPerPage={5}
+        renderItem={(data) => (
+          <DonationCard
+            key={data._id}
+            title1={"Name"}
+            title={data.donorName}
+            date={data.createdAt}
+            amount={data.amount}
+          />
+        )}
+      />
 
       {/* Section 4: Donation Box */}
       <hr />
@@ -202,7 +217,11 @@ const CampaignDetails = () => {
           alignItems: "center",
         }}
       >
-        <DonationBox2 campaign={campaign} creator={creator} fetchData={fetchData} />
+        <DonationBox2
+          campaign={campaign}
+          creator={creator}
+          fetchData={fetchData}
+        />
       </div>
     </div>
   );

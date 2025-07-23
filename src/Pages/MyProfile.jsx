@@ -12,6 +12,7 @@ import DonationCard from "../Components/DonationCard";
 import Footer from "../Components/Footer";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
+import PaginationWrapper from "../Components/PaginationWrapper";
 
 const MyProfile = () => {
   const { cuser, setCUser } = useContext(Context);
@@ -21,17 +22,13 @@ const MyProfile = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    
-    
-    const confirmed = window.confirm(
-      "Are you sure, you want to logout?"
-    );
-    if(!confirmed) return;
+    const confirmed = window.confirm("Are you sure, you want to logout?");
+    if (!confirmed) return;
     setLoading(true);
 
     try {
       const res = await axios.get(`${server}/user/logout`, {
-        withCredentials: true
+        withCredentials: true,
       });
       toast.success(res.data.message);
       setCUser({});
@@ -39,7 +36,7 @@ const MyProfile = () => {
       navigate("/");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to Logout");
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -101,8 +98,6 @@ const MyProfile = () => {
         <button className={styles.rupeeIcon} onClick={handleLogout}>
           Logout
         </button>
-
-        {/* <RiMoneyRupeeCircleFill className={styles.rupeeIcon} /> */}
       </div>
 
       <div className={styles.balance}>
@@ -114,15 +109,33 @@ const MyProfile = () => {
         </div>
       </div>
       <p style={{ color: "var(--color-text-p)", textAlign: "center" }}>
-        You will get ₹100 per day to Spent
+        ₹100 will be added to your balance per day
       </p>
 
       <hr />
 
       <h3>Your Campaigns({myCampaigns.length})</h3>
       <div className={styles.allCampaign}>
+        {/* <PaginationWrapper
+          data={myCampaigns}
+          itemsPerPage={6}
+          renderItem={(data) => (
+            <CampaignCard
+              campaignId={data._id}
+              title={data.title}
+              story={data.story}
+              target={data.target}
+              endDate={data.endDate}
+              imageLink={data.imageLink}
+              userName={data.userName}
+              donatedTillNow={data.donatedTillNow}
+            />
+          )}
+        /> */}
+
         {(myCampaigns || []).map((data) => (
           <CampaignCard
+          key={data._id}
             campaignId={data._id}
             title={data.title}
             story={data.story}
@@ -137,7 +150,22 @@ const MyProfile = () => {
 
       <hr />
       <h3>Your Donations({myDonations.length})</h3>
-      <div className={styles.myDonations}>
+
+      <PaginationWrapper
+        data={myDonations}
+        itemsPerPage={5}
+        renderItem={(data) => (
+          <DonationCard
+            key={data._id}
+            title1={"title"}
+            title={data.title}
+            date={data.createdAt}
+            amount={data.amount}
+          />
+        )}
+      />
+
+      {/* <div className={styles.myDonations}>
         {(myDonations || []).map((data) => (
           <DonationCard
             key={data._id}
@@ -147,7 +175,7 @@ const MyProfile = () => {
             amount={data.amount}
           />
         ))}
-      </div>
+      </div> */}
 
       <Footer />
     </div>
