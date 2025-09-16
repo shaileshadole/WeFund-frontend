@@ -132,3 +132,9 @@
   color: var(--color-text-p);
   margin: 20px 0 30px 0;
 }
+
+.downloadBtn{
+  background-color: red;
+  margin: auto;
+  text-align: center;
+}
