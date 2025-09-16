@@ -61,12 +61,3 @@ Keep #8164e8 as the hero color—use it for buttons, links, logos, or highlights
 
 Would you like a Figma-compatible color palette, Tailwind config, or full CSS variables set next?
 
-
-
-
-
-
-
-
-
-Ask ChatGPT
