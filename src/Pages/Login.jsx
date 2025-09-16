@@ -48,19 +48,30 @@ const Login = () => {
 
       setIsAuthenticated(true);
 
-      // 👇 Immediately fetch user data
-      try{
-
-        const userRes = await axios.get(`${server}/user/meprofile`, {
-          withCredentials: true,
-        });
-        setCUser(userRes.data.user);
-        console.log(cuser);
-        
-      }catch(error){
-        toast.error(error.response.data.message);
-        console.log(error);
-      }
+      if(res.data.user){
+        setCUser(res.data.user);
+        console.log("User set from register response:", res.data.user);
+      }else{
+        // 👇 Immediately fetch user data
+        try {
+          const userRes = await axios.get(`${server}/user/meprofile`, {
+            withCredentials: true,
+          });
+          setCUser(userRes.data.user);
+          console.log(userRes.data.user);
+        } catch (error) {
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.message
+          ) {
+            toast.error(error.response.data.message);
+            console.log(error);
+          } else {
+            toast.error(error.message || "Unable to fetch profile");
+          }
+        }
+      }  
 
       // Reset Form
       setEmail("");
