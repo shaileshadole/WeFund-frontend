@@ -296,22 +296,26 @@ const CampaignDetails = () => {
 
       {/* Section 4: Donation Box */}
       <hr />
-      <h3>
-        Donate Here <LuArrowBigDown />
-      </h3>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <DonationBox2
-          campaign={campaign}
-          creator={creator}
-          fetchData={fetchData}
-        />
-      </div>
+      { daysLeft > 0 && (
+        <>
+          <h3>
+            Donate Here <LuArrowBigDown />
+          </h3>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <DonationBox2
+              campaign={campaign}
+              creator={creator}
+              fetchData={fetchData}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

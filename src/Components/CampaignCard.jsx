@@ -18,11 +18,11 @@ const CampaignCard = ({
 
   const navigate = useNavigate();
 
-  if(daysLeft < 0) return;
+  const isExpired = daysLeft < 0;
 
   return (
-    <div className="campaignCard-Container" onClick={() => navigate(`/campaign/${campaignId}`)}>
-      <img src={imageLink} />
+    <div className={`campaignCard-Container ${isExpired ? "expired" : ""}`} onClick={() => navigate(`/campaign/${campaignId}`)}>
+      <img src={imageLink} alt={title} />
 
       <div className="div1">
         <h4>{title}</h4>
@@ -33,10 +33,28 @@ const CampaignCard = ({
             <div>₹{donatedTillNow}</div>
             <p>Raised of ₹{target}</p>
           </div>
-          <div>
+
+          {/* {isExpired ? (
+            <span className="expiredBadge">Expired</span>
+          ) : (
+            <p>Days Left: {daysLeft}</p>
+          )} */}
+
+          {isExpired ? (
+            <div>
+              <span className="expiredBadge">Expired</span>
+            </div>
+          ) : (
+            <div>
+              <div>{daysLeft}</div>
+              <p>Days Left</p>
+            </div>
+          )}
+          
+          {/* <div>
             <div>{daysLeft}</div>
             <p>Days Left</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="user-icon-name">

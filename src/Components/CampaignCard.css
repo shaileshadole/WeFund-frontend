@@ -52,3 +52,19 @@
 .user-icon-name{
   color: var(--color-green);
 }
+
+.campaignCard-Container.expired {
+  /* opacity: 0.6; */
+  position: relative;
+  background-color: rgb(163, 163, 163);
+}
+
+.expiredBadge {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: red;
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-weight: bold;
+}

@@ -28,8 +28,16 @@ const Home = () => {
       setArray(res.data.allCampaigns);
       setFilteredCampaign(res.data.allCampaigns);
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+        console.log(error);
+      } else {
+        toast.error(error.message || "Something went wrong");
+      }
     } finally {
       setLoading(false);
     }
@@ -49,6 +57,12 @@ const Home = () => {
     );
     setFilteredCampaign(filtered);
   }, [lhsearch, array]);
+
+  
+  // {/* Remove expired campaigns here */}
+  // const validCampaigns = filteredCampaign.filter(
+  //   (c) => new Date(c.endDate) >= new Date()
+  // );
 
   const aboutRef = useRef(null);
 
