@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PaginationWrapper.module.css";
 
-const PaginationWrapper = ({ data = [], itemsPerPage = 10, renderItem }) => {
+const PaginationWrapper = ({ data = [], itemsPerPage = 5, renderItem }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -9,6 +9,10 @@ const PaginationWrapper = ({ data = [], itemsPerPage = 10, renderItem }) => {
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
+
+  if(data.length == 0){
+    return;
+  }
 
   return (
     <div className={styles.paginationContainer0}>
