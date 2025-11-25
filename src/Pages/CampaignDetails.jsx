@@ -82,12 +82,19 @@ const CampaignDetails = () => {
       // Convert the ISO string to a Date object
       const dateObject = new Date(donor.createdAt);
       pdf.text(
-        `${index + 1}.${donor.donorName} -     ${
-          donor.amount
-        } Rs.      Date : ${dateObject.toLocaleDateString()}`,
+        `${index + 1}. Date : ${dateObject.toLocaleDateString()}   -   ${donor.amount} Rs.   -   ${
+          donor.donorName
+        } `,
         25,
         y
       );
+      // pdf.text(
+      //   `${index + 1}.${donor.donorName} -     ${
+      //     donor.amount
+      //   } Rs.      Date : ${dateObject.toLocaleDateString()}`,
+      //   25,
+      //   y
+      // );
       y += 10;
 
       // Auto add new page if crossing bottom margin

@@ -1,4 +1,4 @@
-# 📝 ToDo App Frontend
+# 📝 WeFund Frontend
 
 <!-- Tech badges -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
